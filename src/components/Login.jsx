@@ -1,10 +1,12 @@
 
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../provider/AuthProvider";
 
 
 const Login = () => {
 
-    
+    const {signInUser} = useContext(AuthContext);
 
     const handleLogin = (e) =>{
         e.preventDefault();
@@ -13,6 +15,17 @@ const Login = () => {
         const password = e.target.password.value;
 
         console.log(email, password);
+
+        signInUser(email, password)
+        .then(result =>{
+            console.log(result.user);
+        })
+        .catch(error =>{
+            console.log(error.message);
+        })
+
+        
+
     }
 
     return (
@@ -35,6 +48,7 @@ const Login = () => {
                                 <div><a className="link link-hover">Forgot password?</a></div>
                                 <button className="btn btn-neutral mt-4">Log In</button>
                             </fieldset>
+
 
                             <p>New to this website? Please  <Link to="/register">Register</Link> </p>
                            
